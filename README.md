@@ -10,12 +10,12 @@ Pour tester cette classe, nous vous fournissons 4 codechecks de difficulté croi
 * [Buffer Circulaire (2)](https://codecheck.io/files/2104260838dzzrkmsyltbns00m7ylp0f8q0)
   reprend le même test mais en stockant des objets de type de la classe C utilisée dans le 
   laboratoire sur l'allocation dynamique de mémoire affiche quels constructeurs, 
-  operator= et destructeurs sont appelés. Allocation de la mémoire et construction des 
+  `operator=` et destructeurs sont appelés. Allocation de la mémoire et construction des 
   éléments sont faites séparément, de même que destruction et libération. Pour rappel, 
     * il faut réserver la mémoire nécessaire pour stocker `capacité` éléments avec `operator new`
-    * quand on écrit dans un emplacement mémoire actuellement non utilisé, il faut construire l'élément avec le new en place. 
+    * quand on écrit dans un emplacement mémoire actuellement non utilisé, il faut construire l'élément avec le `new` en place. 
     * quand on écrit dans un emplacement mémoire actuellement utilisé, il faut affecter avec l'opérateur `=`. 
-    * quand on n'utilise plus un emplacement mémoire, il faut détruire l'élément qui s'y trouvait. 
+    * quand on n'utilise plus un emplacement mémoire, il faut détruire l'élément qui s'y trouvait en appelant explicitement le destructeur, codecheck ne connaissant malheureusement pas `std::destroy_at`. 
     * quand on n'utilise plus de mémoire, il faut la libérer avec `operator delete`.
 * [Buffer Circulaire (3)](https://codecheck.io/files/2104260839ci3p47azayry7cxu4mz90ku7s) 
   modifie le test en commençant avec un buffer de capacité nulle. Ensuite, il utilise 
@@ -24,7 +24,7 @@ Pour tester cette classe, nous vous fournissons 4 codechecks de difficulté croi
   comporter comme celle de `std::vector`.
 * [Buffer Circulaire (4)](https://codecheck.io/files/2104260840ca196gxe4wqd4k8h1kj84b79w)
   reprend tout d'abord le même test mais en stockant des objets qui affichent quels 
-  constructeurs, operator= et destructeurs sont appelés. Ensuite, il vérifie les 
+  constructeurs, `operator=` et destructeurs sont appelés. Ensuite, il vérifie les 
   garanties offertes par les différentes méthodes et par le constructeur de copie 
   quand la copie de certains éléments lève des exceptions. Toutes les méthodes doivent 
   offrir des garanties fortes et le constructeur de copie la garantie faible. 
