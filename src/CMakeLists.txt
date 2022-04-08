@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.15)
-project(ASD_2021_L5)
+project(ASD_2022_L5)
 
 set(CMAKE_CXX_STANDARD 17)
 

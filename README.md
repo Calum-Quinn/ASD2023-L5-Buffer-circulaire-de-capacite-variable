@@ -1,8 +1,8 @@
-# ASD-L5 Buffer circulaire de capacité variable
+# ASD2022-L5 Buffer circulaire de capacité variable
 
 Le but de ce laboratoire est de mettre en oeuvre un buffer circulaire de capacité variable sous la forme d'une classe générique ArrayDeque<T>
 
-Pour tester cette classe, nous vous fournissons 4 codechecks de difficulté croissante. 
+Pour tester cette classe, nous vous fournissons 4 codechecks de difficulté croissante. Notez cependant qu'il s'agit ici d'un seul exercice, le même code final devant être capable de passer les 4 codechecks.  
 
 * [Buffer Circulaire (1)](https://codecheck.io/files/2104260833a69wz83ptbn5rt1m1o9mdgi98) spécifie la capacité 
   du buffer à la construction, et il n'est donc pas nécessaire d'avoir codé l'augmentation de capacité pour le 
@@ -33,7 +33,7 @@ Le code de ces 4 codechecks est disponible dans le répertoire [src](./src). Mod
 
 Sauvegardez les fichiers zip générés par codecheck dans le répertoire [zips](./zips).
 
-Pour vous aider, vous pouvez voir ou revoir les vidéos suivantes du cours d'ASD1 de 2020 : 
+Pour vous aider, vous pouvez voir ou revoir les capsules vidéos suivantes, issues du cours d'ASD1 de 2020 : 
 
 * [4.2 - Tableaux de taille fixe](https://tinyurl.com/yc88dntx) pour la gestion des garanties
   en cas d'exception
