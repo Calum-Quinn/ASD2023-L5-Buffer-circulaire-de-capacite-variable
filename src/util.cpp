@@ -1,8 +1,11 @@
+#include <ostream>
+using std::ostream, std::endl;
+
 #include <iostream>
 using std::cout;
-using std::endl;
 
 #include <stdexcept>
+using std::exception;
 
 #include "util.h"
 
@@ -11,25 +14,27 @@ C::C(int i) : valeur(i), explosif(false) {
 }
 
 C::C(const C& c) : valeur(c.valeur), explosif(c.explosif) {
-    if(explosif) throw std::exception();
+    if(explosif) throw exception();
     cout << " CP(" << valeur << ") ";
 }
 
 C& C::operator= (const C& other) {
-    if(explosif) throw std::exception();
+    if(explosif) throw exception();
     valeur = other.valeur;
     explosif = other.explosif;
     cout << " =(" << valeur << ") ";
     return *this;
 }
 
-void C::rendExplosif() { explosif = true; }
+void C::rendExplosif() {
+   explosif = true;
+}
 
 C::~C() {
     cout << " D(" << valeur << ") ";
 }
 
-std::ostream& operator<<(std::ostream& s, const C& c) {
+ostream& operator<<(ostream& s, const C& c) {
     s << c.valeur;
     return s;
 }

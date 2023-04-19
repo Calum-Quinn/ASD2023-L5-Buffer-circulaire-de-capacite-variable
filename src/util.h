@@ -1,20 +1,20 @@
-#ifndef ASD1_LABS_2020_UTIL_H
-#define ASD1_LABS_2020_UTIL_H
+#ifndef ASD_LABS_UTIL_H
+#define ASD_LABS_UTIL_H
 
-#include <ostream>
+#include <ostream> // std::ostream
 
 class C {
-    friend std::ostream& operator<<(std::ostream& s, const C& v);
-    int valeur;
-    bool explosif;
+   friend std::ostream& operator<<(std::ostream& s, const C& v);
+   int valeur;
+   bool explosif;
 public:
-    C(int i);
-    C(const C& c);
-    C& operator= (const C& other);
-    ~C();
-    void rendExplosif();
+   C(int i);
+   C(const C& c);
+   C& operator= (const C& other);
+   ~C();
+   void rendExplosif();
 };
 
 std::ostream& operator<<(std::ostream& s, const C& v);
 
-#endif //ASD1_LABS_2020_UTIL_H
+#endif //ASD_LABS_UTIL_H

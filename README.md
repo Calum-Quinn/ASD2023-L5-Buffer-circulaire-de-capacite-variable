@@ -1,13 +1,13 @@
-# ASD2022-L5 Buffer circulaire de capacité variable
+# ASD2023-L5 Buffer circulaire de capacité variable
 
 Le but de ce laboratoire est de mettre en oeuvre un buffer circulaire de capacité variable sous la forme d'une classe générique ArrayDeque<T>
 
 Pour tester cette classe, nous vous fournissons 4 codechecks de difficulté croissante. Notez cependant qu'il s'agit ici d'un seul exercice, le même code final devant être capable de passer les 4 codechecks.  
 
-* [Buffer Circulaire (1)](https://codecheck.io/files/2104260833a69wz83ptbn5rt1m1o9mdgi98) spécifie la capacité 
+* [Buffer Circulaire (A)](https://codecheck.io/files/2304190927dre4qi4nm4rck8d0aysa5k19x) spécifie la capacité 
   du buffer à la construction, et il n'est donc pas nécessaire d'avoir codé l'augmentation de capacité pour le 
   passer. 
-* [Buffer Circulaire (2)](https://codecheck.io/files/2104260838dzzrkmsyltbns00m7ylp0f8q0)
+* [Buffer Circulaire (B)](https://codecheck.io/files/230419094189mnnu2oo8gylwfso0yfv1a4v)
   reprend le même test mais en stockant des objets de type de la classe C utilisée dans le 
   laboratoire sur l'allocation dynamique de mémoire affiche quels constructeurs, 
   `operator=` et destructeurs sont appelés. Allocation de la mémoire et construction des 
@@ -15,14 +15,14 @@ Pour tester cette classe, nous vous fournissons 4 codechecks de difficulté croi
     * il faut réserver la mémoire nécessaire pour stocker `capacité` éléments avec `operator new`
     * quand on écrit dans un emplacement mémoire actuellement non utilisé, il faut construire l'élément avec le `new` en place. 
     * quand on écrit dans un emplacement mémoire actuellement utilisé, il faut affecter avec l'opérateur `=`. 
-    * quand on n'utilise plus un emplacement mémoire, il faut détruire l'élément qui s'y trouvait en appelant explicitement le destructeur, codecheck ne connaissant malheureusement pas `std::destroy_at`. 
+    * quand on n'utilise plus un emplacement mémoire, il faut détruire l'élément qui s'y trouvait en appelant `std::destroy_at` ou les destructeur si l'on utilise un C++ antérieur à C++17.
     * quand on n'utilise plus de mémoire, il faut la libérer avec `operator delete`.
-* [Buffer Circulaire (3)](https://codecheck.io/files/2104260839ci3p47azayry7cxu4mz90ku7s) 
+* [Buffer Circulaire (C)](https://codecheck.io/files/23041909408un8f812mkkntod3lxsyvyifr) 
   modifie le test en commençant avec un buffer de capacité nulle. Ensuite, il utilise 
   la stratégie de doublement si nécessaire vue au cours pour augmenter au fur et à mesure 
   la capacité. Il ajoute également une nouvelle méthode: `shrink_to_fit`, qui doit se 
   comporter comme celle de `std::vector`.
-* [Buffer Circulaire (4)](https://codecheck.io/files/2104260840ca196gxe4wqd4k8h1kj84b79w)
+* [Buffer Circulaire (D)](https://codecheck.io/files/2304190922269na4wfdq2h3632mno34pp0j)
   reprend tout d'abord le même test mais en stockant des objets qui affichent quels 
   constructeurs, `operator=` et destructeurs sont appelés. Ensuite, il vérifie les 
   garanties offertes par les différentes méthodes et par le constructeur de copie 
