@@ -25,13 +25,87 @@ public:
 
    // Placez ici les méthodes publiques nécessaires pour passer le codecheck
 
+   reference operator[](size_type i) const{
+      return buffer[(debut + i + capacite) % capacite];
+   }
+
+   void push_front(value_type i) {
+      value_type temp = buffer[capacite - 1];
+
+      new((void*)(&buffer[temp])) value_type{i};
+      debut = temp;
+      ++taille;
+   }
+
+
+   void push_back(value_type i) {
+      new((void*)(&buffer[taille])) value_type{i};
+      ++taille;
+   }
+
+   void pop_front() {
+
+      if(debut < taille and taille !=0){
+         delete (pointer)buffer[debut];
+         ++debut;
+      }
+
+   }
+
+   void pop_back() {
+
+      /*si taille == 0
+      alerter tableau vide
+      détruire data[taille - 1]
+      taille ← taille - 1*/
+
+      if(taille != 0){
+
+
+         delete (pointer)buffer[taille-1];
+         --taille;
+      }
+
+   }
+
+   reference front() const {
+      return *buffer;
+   }
+
+   reference back() const {
+      return buffer[taille - 1];
+   }
+
+   void swap(ArrayDeque& other) {
+
+   }
+
+   bool empty() const {
+      return !taille;
+   }
+
+   size_type size() const noexcept {
+      return taille;
+   }
+   size_type capacity() const noexcept {
+      return capacite;
+   }
+
+
+
 private:
    pointer buffer;
    size_type capacite;
    size_type debut;
    size_type taille;
 
-   // Placez ici les méthodes privées qui permettent de rendre votre code plus clair
+
+   // Placez ici les méthodes privées qui permettent de rendre votre code plus claiar
+
+
+
+
+
 };
 
 template <typename T> inline
