@@ -25,18 +25,36 @@ public:
 
    // Placez ici les méthodes publiques nécessaires pour passer le codecheck
 
-   reference operator[](size_type i) const{
-      return buffer[(debut + i + capacite) % capacite];
+   size_type i_physique(size_type i_logique) const {
+      return (debut + i_logique + capacite) % capacite;
+   }
+
+   reference operator[](size_type i) {
+//      return buffer[i_physique(i)];
+      return *(buffer + i_physique(i));
+   }
+
+   value_type operator[](size_type i) const {
+//      return buffer[i_physique(i)];
+      return *(buffer + i_physique(i));
    }
 
    void push_front(value_type i) {
-      value_type temp = buffer[capacite - 1];
-
+      size_type temp = capacite -1;
+     /* if(debut){
+//         --debut;
+         temp = debut - 1;
+      }
+      else{
+//         debut = capacite - 1;
+         temp = capacite - 1;
+      }*/
+     //size_type temp = debut - 1;
+//      size_type temp = i_physique(debut);
       new((void*)(&buffer[temp])) value_type{i};
       debut = temp;
       ++taille;
    }
-
 
    void push_back(value_type i) {
       new((void*)(&buffer[taille])) value_type{i};
@@ -45,10 +63,19 @@ public:
 
    void pop_front() {
 
-      if(debut < taille and taille !=0){
-         delete (pointer)buffer[debut];
-         ++debut;
-      }
+      /*
+       * méthode supprimer_au_début()
+          si taille == 0, alerter
+         détruire data[0]
+         début ← i_physique(1)
+
+       */
+
+
+
+      delete (pointer)buffer[0];
+      ++debut;
+
 
    }
 
@@ -69,10 +96,12 @@ public:
    }
 
    reference front() const {
-      return *buffer;
+      return buffer[debut];
    }
 
    reference back() const {
+//      cout << "back " << buffer[debut + taille -1] << endl;
+//      cout << "debut : " << debut << "  taille  :" << taille << endl;
       return buffer[taille - 1];
    }
 
@@ -107,6 +136,22 @@ private:
 
 
 };
+/*
+template <typename T> inline
+std::ostream& operator<<(std::ostream& s,
+                         const ArrayDeque<T>& v) {
+   s << "(" << v.size() << "/" << v.capacity() << ") : ";
+   if (not v.empty())
+      s << v.front() << " -> " << v.back() << " : ";
+   s << "[";
+   for (int i = 0; i < v.size(); ++i) {
+      s << *(v + i);
+      if (i != v.size() - 1)
+         s << ", ";
+   }
+   s << "]";
+   return s;
+}*/
 
 template <typename T> inline
 std::ostream& operator<<(std::ostream& s,
