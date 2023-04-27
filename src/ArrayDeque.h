@@ -38,6 +38,14 @@ public:
       return buffer[i_physique(i)];
    }
 
+   ArrayDeque& operator=(const ArrayDeque& other) {
+      capacite = other.capacite;
+
+      for (; taille < other.taille; ++taille) {
+         new(buffer + taille) value_type(other[taille]);
+      }
+   }
+
    ArrayDeque(const ArrayDeque& other) : ArrayDeque(other.capacite){
       for (; taille < other.taille; ++taille) {
          new(buffer + taille) value_type(other[taille]);
@@ -57,7 +65,7 @@ public:
    }
 
    void pop_front() {
-      std::destroy_at(&buffer[0]);
+      std::destroy_at(&buffer[i_physique(0)]);
       ++debut;
       --taille;
    }
@@ -70,7 +78,7 @@ public:
       taille ← taille - 1*/
 
       if(taille != 0){
-         std::destroy_at(&buffer[taille - 1]);
+         std::destroy_at(&buffer[i_physique(taille - 1)]);
          --taille;
       }
 
@@ -108,6 +116,14 @@ public:
       return capacite;
    }
 
+   ~ArrayDeque() {
+      for (size_type i = 0; i < taille; ++i) {
+         std::destroy_at(&buffer[i_physique(i)]);
+      }
+      if (buffer) {
+         ::operator delete(buffer);
+      }
+   }
 
 
 private:
