@@ -59,7 +59,6 @@ public:
    }
 
    void push_back(value_type i) {
-//      new((void*)(&buffer[taille])) value_type{i};
       new(buffer + i_physique(taille)) value_type (i);
       ++taille;
    }
@@ -71,17 +70,10 @@ public:
    }
 
    void pop_back() {
-
-      /*si taille == 0
-      alerter tableau vide
-      détruire data[taille - 1]
-      taille ← taille - 1*/
-
       if(taille != 0){
          std::destroy_at(&buffer[i_physique(taille - 1)]);
          --taille;
       }
-
    }
 
    reference front() const {
@@ -89,8 +81,6 @@ public:
    }
 
    reference back() const {
-//      cout << "back " << buffer[debut + taille -1] << endl;
-//      cout << "debut : " << debut << "  taille  :" << taille << endl;
       return buffer[i_physique(taille - 1)];
    }
 
@@ -114,6 +104,10 @@ public:
    }
    size_type capacity() const noexcept {
       return capacite;
+   }
+
+   void shrink_to_fit() {
+
    }
 
    ~ArrayDeque() {
