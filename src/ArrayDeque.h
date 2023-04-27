@@ -40,6 +40,12 @@ public:
       return *(buffer + i_physique(i));
    }
 
+   ArrayDeque(const ArrayDeque& other) : ArrayDeque(other.capacite){
+      for (; taille < other.taille; ++taille) {
+         new(buffer + taille) value_type(other[taille]);
+      }
+   }
+
    void push_front(value_type i) {
       debut = i_physique(-1);
       new(buffer + debut) value_type(i);
@@ -98,7 +104,10 @@ public:
    }
 
    void swap(ArrayDeque& other) {
-
+      std::swap(capacite,other.capacite);
+      std::swap(taille,other.taille);
+      std::swap(buffer,other.buffer);
+      std::swap(debut,other.debut);
    }
 
    bool empty() const {
