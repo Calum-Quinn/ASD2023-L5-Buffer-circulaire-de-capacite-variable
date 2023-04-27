@@ -4,6 +4,7 @@
 #include <cstddef> // std::size_t
 #include <ostream> // std::ostream
 // Ajoutez si nécessaire d'autres inclusions de librairies
+#include <memory>
 
 template < class T >
 class ArrayDeque {
@@ -40,24 +41,14 @@ public:
    }
 
    void push_front(value_type i) {
-      size_type temp = capacite -1;
-     /* if(debut){
-//         --debut;
-         temp = debut - 1;
-      }
-      else{
-//         debut = capacite - 1;
-         temp = capacite - 1;
-      }*/
-     //size_type temp = debut - 1;
-//      size_type temp = i_physique(debut);
-      new((void*)(&buffer[temp])) value_type{i};
-      debut = temp;
+      debut = i_physique(-1);
+      new(buffer + debut) value_type(i);
       ++taille;
    }
 
    void push_back(value_type i) {
-      new((void*)(&buffer[taille])) value_type{i};
+//      new((void*)(&buffer[taille])) value_type{i};
+      new(buffer + i_physique(taille)) value_type (i);
       ++taille;
    }
 
@@ -71,10 +62,9 @@ public:
 
        */
 
-
-
-      delete (pointer)buffer[0];
+      std::destroy_at(&buffer[0]);
       ++debut;
+      --taille;
 
 
    }
@@ -87,9 +77,7 @@ public:
       taille ← taille - 1*/
 
       if(taille != 0){
-
-
-         delete (pointer)buffer[taille-1];
+         std::destroy_at(&buffer[taille - 1]);
          --taille;
       }
 
@@ -102,7 +90,11 @@ public:
    reference back() const {
 //      cout << "back " << buffer[debut + taille -1] << endl;
 //      cout << "debut : " << debut << "  taille  :" << taille << endl;
-      return buffer[taille - 1];
+      return buffer[i_physique(taille - 1)];
+   }
+
+   reference  back() {
+      return *(buffer + i_physique(taille - 1));
    }
 
    void swap(ArrayDeque& other) {
