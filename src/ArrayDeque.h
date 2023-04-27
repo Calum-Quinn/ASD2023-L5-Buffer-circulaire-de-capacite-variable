@@ -31,13 +31,11 @@ public:
    }
 
    reference operator[](size_type i) {
-//      return buffer[i_physique(i)];
-      return *(buffer + i_physique(i));
+      return buffer[i_physique(i)];
    }
 
-   value_type operator[](size_type i) const {
-//      return buffer[i_physique(i)];
-      return *(buffer + i_physique(i));
+   const_reference operator[](size_type i) const {
+      return buffer[i_physique(i)];
    }
 
    ArrayDeque(const ArrayDeque& other) : ArrayDeque(other.capacite){
@@ -59,20 +57,9 @@ public:
    }
 
    void pop_front() {
-
-      /*
-       * méthode supprimer_au_début()
-          si taille == 0, alerter
-         détruire data[0]
-         début ← i_physique(1)
-
-       */
-
       std::destroy_at(&buffer[0]);
       ++debut;
       --taille;
-
-
    }
 
    void pop_back() {
