@@ -84,6 +84,10 @@ public:
       if (this == &other) {
          return *this;
       }
+
+      ArrayDeque temp(other);
+      swap(temp);
+      return *this;
    }
 
 
@@ -97,6 +101,11 @@ public:
      * @throws          : NIL
      */
    void push_front(value_type i) {
+
+      if(capacite <= taille){
+         changer_capacite();
+      }
+
       debut = i_physique(-1);
       new(buffer + debut) value_type(i);
       ++taille;
@@ -113,6 +122,11 @@ public:
      * @throws          : NIL
      */
    void push_back(value_type i) {
+      
+      if(capacite <= taille){
+         changer_capacite();
+      }
+
       new(buffer + i_physique(taille)) value_type (i);
       ++taille;
    }
@@ -133,6 +147,14 @@ public:
    }
 
 
+   /**
+     * @name            : pop_back
+     *
+     * @but             : supprimer le dernier élément
+     *
+     * @return          : void
+     * @throws          : NIL
+     */
    void pop_back() {
       if(taille != 0){
          std::destroy_at(&buffer[i_physique(taille - 1)]);
@@ -154,6 +176,14 @@ public:
    }
 
 
+   /**
+  * @name            : back
+  *
+  * @but             : retourne le dernier élément
+  *
+  * @return          : rertourne une référence sur le dernier élément
+  * @throws          : NIL
+  */
    reference back() const {
       return buffer[i_physique(taille - 1)];
    }
