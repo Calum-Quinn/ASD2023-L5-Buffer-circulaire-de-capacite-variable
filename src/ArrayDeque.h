@@ -122,7 +122,7 @@ public:
      * @throws          : NIL
      */
    void push_back(value_type i) {
-      
+
       if(capacite <= taille){
          changer_capacite();
       }
