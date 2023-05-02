@@ -41,6 +41,7 @@ public:
       }
    }
 
+
    /**
      * @name            : operator[]
      *
@@ -68,6 +69,7 @@ public:
       return buffer[i_physique(i)];
    }
 
+
    /**
      * @name            : operator=
      *
@@ -84,12 +86,16 @@ public:
       }
    }
 
-   ArrayDeque(const ArrayDeque& other) : ArrayDeque(other.capacite){
-      for (; taille < other.taille; ++taille) {
-         new(buffer + taille) value_type(other[taille]);
-      }
-   }
 
+   /**
+     * @name            : push_front
+     *
+     * @but             : ajoute un élément au début du buffer
+     *
+     * @param i         : élément à ajouter
+     * @return          : void
+     * @throws          : NIL
+     */
    void push_front(value_type i) {
       debut = i_physique(-1);
       new(buffer + debut) value_type(i);
@@ -126,6 +132,7 @@ public:
       --taille;
    }
 
+
    void pop_back() {
       if(taille != 0){
          std::destroy_at(&buffer[i_physique(taille - 1)]);
@@ -145,6 +152,7 @@ public:
    reference front() const {
       return buffer[i_physique(0)];
    }
+
 
    reference back() const {
       return buffer[i_physique(taille - 1)];
@@ -167,17 +175,54 @@ public:
       std::swap(debut,other.debut);
    }
 
+
+   /**
+   * @name            : empty
+   *
+   * @but             : fonction servant à indiquer si le buffer est vide
+   *
+   * @return          : bool
+   * @throws          : NIL
+   */
    bool empty() const {
       return !taille;
    }
 
+
+   /**
+   * @name            : size
+   *
+   * @but             : fonction servant à indiquer la taille du buffer
+   *
+   * @return          : size_t
+   * @throws          : NIL
+   */
    size_type size() const noexcept {
       return taille;
    }
+
+
+   /**
+   * @name            : capacity
+   *
+   * @but             : fonction servant à indiquer si la capacitee du buffer
+   *
+   * @return          : size_t
+   * @throws          : NIL
+   */
    size_type capacity() const noexcept {
       return capacite;
    }
 
+
+   /**
+   * @name            : shrink_to_fit
+   *
+   * @but             : fonction servant à redimmensionner la taille par rapport à la capicitee
+   *
+   * @return          : void
+   * @throws          : NIL
+   */
    void shrink_to_fit() {
       changer_capacite(true);
    }
